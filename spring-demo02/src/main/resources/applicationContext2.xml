@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--通过无参构造方法实例化-->
+    <bean id="bean1" class="com.itheima.domain.Bean2"></bean>
+    <!--指定通过MyBeanFactory的createBean方法来实例化-->
+    <bean id="bean2" class="com.itheima.MyBeanFactory" factory-method="createBean"></bean>
+    <!--<bean id="factory1" class="com.itheima.MyBeanFactory"></bean>
+    <bean id="bean3" factory-bean="factory1" factory-method="createBean"></bean>-->
+</beans>

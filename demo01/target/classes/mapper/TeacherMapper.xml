@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.svtcc.dao.TeacherDao">
+    <resultMap id="teacherMap" type="cn.edu.svtcc.pojo.Teacher">
+        <result property="teacherId" column="teacher_id"></result>
+        <result property="teacherName" column="teacher_name"></result>
+        <result property="deptId" column="dept_id"></result>
+        <association property="dept" column="dept_id" javaType="cn.edu.svtcc.pojo.Dept"
+                     select="cn.edu.svtcc.dao.DeptDao.selectById"></association>
+    </resultMap>
+    <resultMap id="deptMap" type="cn.edu.svtcc.pojo.Dept">
+        <result property="deptId" column="dept_id"></result>
+        <result property="deptName" column="dept_name"></result>
+    </resultMap>
+    <resultMap id="teacherMap2" type="cn.edu.svtcc.pojo.Teacher">
+        <result property="teacherId" column="teacher_id"></result>
+        <result property="teacherName" column="teacher_name"></result>
+        <result property="deptId" column="dept_id"></result>
+        <association property="dept" column="dept_id" resultMap="deptMap"></association>
+    </resultMap>
+    <select id="selectById" resultMap="teacherMap">
+        select teacher_id,teacher_name,dept_id from teacher
+        where teacher_id=#{teacherId}
+    </select>
+
+
+    <select id="selectAll" resultMap="teacherMap2">
+        select teacher_id,teacher_name,d.dept_id,d.dept_name
+        from teacher join dept d on teacher.dept_id=d.dept_id
+    </select>
+</mapper>

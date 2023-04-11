@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--Spring会自动扫描cn.edu.svtcc下面的类，
+    如果有应用注解：@Component-->
+    <context:component-scan base-package="cn.edu.svtcc"></context:component-scan>
+
+    <bean id="student2" class="cn.edu.svtcc.Demo03Student">
+        <property name="name" value="hlj1"></property>
+        <property name="number" value="001"></property>
+    </bean>
+</beans>

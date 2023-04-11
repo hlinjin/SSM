@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.svtcc.dao.StudentDao">
+    <delete id="deleteStudentById">
+        delete from student where stu_id=#{stuId}
+    </delete>
+    <select id="selectStudentById" resultType="cn.edu.svtcc.pojo.Student">
+        select * from student where stu_id=#{stuId}
+    </select>
+</mapper>

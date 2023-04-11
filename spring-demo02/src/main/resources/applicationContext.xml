@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userDao" class="com.itheima.dao.impl.UserDaoImpl" scope="prototype"></bean>
+    <bean id="userService" class="com.itheima.service.impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+    <bean id="userController" class="com.itheima.controller.UserController">
+        <constructor-arg name="userService" ref="userService"></constructor-arg>
+    </bean>
+    <bean id="dept" class="com.itheima.domain.Dept">
+        <constructor-arg name="deptId" value="001"></constructor-arg>
+        <constructor-arg name="deptName" value="信息工程系"></constructor-arg>
+    </bean>
+
+    <bean id="student" class="com.itheima.domain.Student">
+        <property name="name" value="hlj"></property>
+        <property name="number" value="1"></property>
+        <property name="hobbys">
+            <list>
+                <value>篮球</value>
+                <value>足球</value>
+            </list>
+        </property>
+        <property name="courses">
+            <map>
+                <entry key="Java程序设计" value="90"></entry>
+                <entry key="SSM框架" value="50"></entry>
+            </map>
+        </property>
+        <property name="salary" value="20000"></property>
+        <property name="dept" ref="dept"></property>
+    </bean>
+</beans>

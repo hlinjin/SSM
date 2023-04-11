@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="helloSpring" class="cn.edu.svtcc.HelloSpring">
+        <property name="userName" value="谭邦涛"></property>
+        <property name="age" value="10"></property>
+        <property name="live" value="false"></property>
+    </bean>
+
+    <bean id="helloSpring2" class="cn.edu.svtcc.HelloSpring">
+        <constructor-arg name="userName" value="hlj1"></constructor-arg>
+        <constructor-arg name="age" value="10"></constructor-arg>
+        <constructor-arg name="live" value="false"></constructor-arg>
+
+    </bean>
+
+
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="userDao" class="springaop.demo01.UserDaoImpl"></bean>
+    <bean name="xmlAdvice" class="springaop.demo01.XmlAdvice"></bean>
+    <aop:config>
+        <!--指定切入点-->
+        <aop:pointcut id="pointcut" expression="execution(* springaop.demo01.UserDaoImpl.*(..))"/>
+        <!--指定切面-->
+        <aop:aspect ref="xmlAdvice">
+            <!--指定前置通知-->
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <!--指定环绕通知-->
+            <aop:around method="around" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

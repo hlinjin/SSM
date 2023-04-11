@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.svtcc.dao.UserDao">
+    <cache></cache>
+    <resultMap id="userMap" type="cn.edu.svtcc.pojo.User">
+    </resultMap>
+    <resultMap id="roleMap" type="cn.edu.svtcc.pojo.Role">
+        <result property="roleId" column="role_id"></result>
+        <result property="roleName" column="role_name"></result>
+    </resultMap>
+    <resultMap id="orderMap" type="cn.edu.svtcc.pojo.Order">
+        <result property="orderId" column="order_id"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="orderNum" column="order_num"></result>
+        <result property="orderPrice" column="order_price"></result>
+    </resultMap>
+    <resultMap id="userMap2" type="User">
+        <result property="uid" column="uid"></result>
+        <result property="uname" column="uname"></result>
+        <result property="uage" column="uage"></result>
+        <collection property="roles" ofType="cn.edu.svtcc.pojo.Role" resultMap="roleMap"></collection>
+        <collection property="orders" column="user_id" ofType="cn.edu.svtcc.pojo.Order"
+        resultMap="orderMap">
+        </collection>
+    </resultMap>
+    <sql id="selectUserVO">
+         select uid,uname,uage from user where 1=1
+    </sql>
+    <select id="selectUserByName" resultMap="userMap">
+        select * from user where uname like concat('%',#{uname},'%')
+    </select>
+    <select id="selectUserByAge" resultMap="userMap">
+        <include refid="selectUserVO"></include>
+        where uage=#{uage}
+    </select>
+<!--    根据用户名和年龄查询用户信息-->
+    <select id="selectUsersByNameAndAge" resultMap="userMap">
+        <include refid="selectUserVO"></include>
+        <where>
+            <if test="uname!=null and uname!=''">
+                and uname like concat('%',#{uname},'%')
+            </if>
+            <if test="uage!=null and uage!=0">
+                and uage=#{uage}
+            </if>
+        </where>
+    </select>
+    <select id="selectUsers" resultMap="userMap">
+        <include refid="selectUserVO"></include>
+
+            <if test="uname!=null and uname!=''">
+                and uname like concat('%',#{uname},'%')
+            </if>
+            <if test="uage!=null and uage!=0">
+                and uage=#{uage}
+            </if>
+
+
+    </select>
+    <insert id="addUser" parameterType="cn.edu.svtcc.pojo.User">
+        insert into user(uname,uage) values (#{uname},#{uage})
+    </insert>
+
+    <update id="updateUser" parameterType="cn.edu.svtcc.pojo.User">
+        update user set uname=#{uname},uage=#{uage} where uid=#{uid}
+    </update>
+
+    <delete id="deleteUser">
+        delete from user where uid=#{uid}
+    </delete>
+    <delete id="deleteUserByIds" parameterType="java.util.Arrays">
+        delete from user where uid in
+            <foreach collection="array" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <select id="selectUserById" resultMap="userMap2">
+        select u.uid,uname,uage,r.role_id,r.role_name
+        from user u join user_role ur on u.uid = ur.uid
+                    join role r on ur.role_id = r.role_id
+        where u.uid=#{uid}
+    </select>
+</mapper>
